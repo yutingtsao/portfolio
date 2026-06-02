@@ -61,9 +61,9 @@
    -------------------------------------------- */
 [data-theme="dark"] {
   --color-bg: #3f463a;          /* 鼠尾草深綠背景 */
-  --color-card: #4a5243;        /* 卡片：比背景亮一階 */
-  --color-bg-alt: #363d31;      /* 交替區段：比背景略深 */
-  --color-divider: #525a4a;     /* 分隔線：略亮於背景 */
+  --color-card: #515a48;        /* 卡片：明顯亮一階 */
+  --color-bg-alt: #333a2e;      /* 交替區段：明顯深一階 */
+  --color-divider: #5a6350;     /* 分隔線：略亮於背景 */
 
   --color-text: #eae8db;        /* 暖米白內文 */
   --color-text-soft: #c2c4b3;   /* 次要文字（柔和米灰） */
@@ -145,15 +145,17 @@ img {
   position: sticky;
   top: 0;
   z-index: 100;
-  background-color: rgba(235, 235, 223, 0.85);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background-color: rgba(227, 227, 211, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--color-divider);
+  box-shadow: 0 2px 16px rgba(63, 67, 50, 0.06);
   transition: background-color 0.4s var(--ease-out-soft);
 }
 
 [data-theme="dark"] .site-header {
-  background-color: rgba(63, 70, 58, 0.85);
+  background-color: rgba(54, 61, 49, 0.92);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.22);
 }
 
 .nav {
@@ -281,10 +283,51 @@ img {
 .section--alt {
   background-color: var(--color-bg-alt);
   transition: background-color 0.4s var(--ease-out-soft);
+  position: relative;
 }
 .section--card {
   background-color: var(--color-card);
   transition: background-color 0.4s var(--ease-out-soft);
+  position: relative;
+}
+
+/* 區段交界處的柔和漸層過渡，避免硬切 */
+.section--alt::before,
+.section--card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(to bottom, var(--color-bg), transparent);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* 區段角落極淡光暈（呼應 Hero，讓內頁也有氛圍） */
+.section--alt::after {
+  content: "";
+  position: absolute;
+  top: 10%;
+  right: -4%;
+  width: 28vw;
+  height: 28vw;
+  max-width: 360px;
+  max-height: 360px;
+  background: radial-gradient(circle, rgba(176, 137, 104, 0.10), transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+[data-theme="dark"] .section--alt::after {
+  background: radial-gradient(circle, rgba(210, 168, 127, 0.10), transparent 70%);
+}
+/* 確保內容在光暈之上 */
+.section--alt > .container,
+.section--card > .container {
+  position: relative;
+  z-index: 1;
 }
 
 /* 錨點捲動時，預留固定導覽列高度，避免標題被遮住 */
@@ -292,7 +335,7 @@ img {
   scroll-margin-top: 96px;
 }
 
-/* Work 頁分類標籤列（錨點捲動） */
+/* Work 頁分類標籤列（樣式比照卡片標籤：膠囊、燕麥底、深墨綠字） */
 .work-tabs {
   display: flex;
   flex-wrap: wrap;
@@ -302,33 +345,34 @@ img {
 
 .work-tab {
   font-family: var(--font-sans);
-  font-size: 0.92rem;
-  padding: 9px 22px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  padding: 8px 18px;
   border-radius: 999px;
-  border: 1.5px solid var(--color-divider);
-  color: var(--color-text);
-  background-color: transparent;
+  border: 1px solid transparent;
+  background-color: var(--color-oat);
+  color: var(--color-brand-deep);
   cursor: pointer;
   transition: all 0.25s var(--ease-out-soft);
   text-decoration: none;
 }
 
 .work-tab:hover {
-  border-color: var(--color-brand);
-  color: var(--color-brand);
   transform: translateY(-2px);
+  background-color: var(--color-terracotta);
+  color: var(--color-card);
 }
 
 .work-tab.is-active {
   background-color: var(--color-brand);
-  border-color: var(--color-brand);
   color: var(--color-bg);
 }
 
-/* 平台區段標題 */
+/* 平台區段標題 → 說明 24px；說明 → 卡片 48px */
 .work-section__heading {
-  font-size: 1.5rem;
-  margin-bottom: var(--space-2);
+  font-size: 1.6rem;
+  margin-bottom: var(--space-3);
   color: var(--color-brand);
 }
 .work-section__desc {
@@ -399,51 +443,53 @@ img {
 .hero::before {
   content: "";
   position: absolute;
-  top: -10%;
-  right: -5%;
-  width: 45vw;
-  height: 45vw;
-  max-width: 560px;
-  max-height: 560px;
-  background: radial-gradient(circle, rgba(201, 187, 164, 0.28), transparent 70%);
+  top: -12%;
+  right: -8%;
+  width: 52vw;
+  height: 52vw;
+  max-width: 680px;
+  max-height: 680px;
+  background: radial-gradient(circle, rgba(176, 137, 104, 0.40), rgba(201, 187, 164, 0.20) 45%, transparent 72%);
   border-radius: 50%;
   z-index: 0;
   pointer-events: none;
-  animation: glowDrift 22s ease-in-out infinite;
+  filter: blur(8px);
+  animation: glowDrift 20s ease-in-out infinite;
 }
 
-/* 第二層極淡光暈（陶土調），與第一層錯開飄移，增加層次 */
+/* 第二層光暈（燕麥調），與第一層錯開飄移，增加層次 */
 .hero::after {
   content: "";
   position: absolute;
-  bottom: -15%;
-  left: -8%;
-  width: 40vw;
-  height: 40vw;
-  max-width: 480px;
-  max-height: 480px;
-  background: radial-gradient(circle, rgba(176, 137, 104, 0.14), transparent 70%);
+  bottom: -18%;
+  left: -10%;
+  width: 46vw;
+  height: 46vw;
+  max-width: 560px;
+  max-height: 560px;
+  background: radial-gradient(circle, rgba(201, 187, 164, 0.34), transparent 70%);
   border-radius: 50%;
   z-index: 0;
   pointer-events: none;
-  animation: glowDrift2 26s ease-in-out infinite;
+  filter: blur(8px);
+  animation: glowDrift2 24s ease-in-out infinite;
 }
 
 [data-theme="dark"] .hero::before {
-  background: radial-gradient(circle, rgba(205, 208, 184, 0.10), transparent 70%);
+  background: radial-gradient(circle, rgba(210, 168, 127, 0.30), rgba(205, 208, 184, 0.14) 45%, transparent 72%);
 }
 [data-theme="dark"] .hero::after {
-  background: radial-gradient(circle, rgba(210, 168, 127, 0.10), transparent 70%);
+  background: radial-gradient(circle, rgba(205, 208, 184, 0.22), transparent 70%);
 }
 
-/* 極慢飄移：幾乎察覺不到，但讓畫面有呼吸感 */
+/* 飄移幅度加大，讓「呼吸感」更明顯 */
 @keyframes glowDrift {
   0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-30px, 24px) scale(1.06); }
+  50% { transform: translate(-50px, 40px) scale(1.12); }
 }
 @keyframes glowDrift2 {
   0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(28px, -20px) scale(1.08); }
+  50% { transform: translate(46px, -34px) scale(1.14); }
 }
 
 .hero__inner {
@@ -548,6 +594,38 @@ img {
   grid-template-columns: repeat(3, 1fr);
   gap: var(--space-4);
   margin-top: var(--space-6);
+}
+
+/* 寬卡片：單張時橫向延展填滿整列（圖左文右） */
+.work-card--wide {
+  grid-column: 1 / -1;
+  flex-direction: row;
+  align-items: stretch;
+}
+.work-card--wide .work-card__thumb {
+  flex: 1 1 55%;
+  aspect-ratio: auto;
+  min-height: 280px;
+}
+.work-card--wide .work-card__body {
+  flex: 1 1 45%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: var(--space-5);
+}
+.work-card--wide .work-card__tag {
+  align-self: flex-start;
+}
+@media (max-width: 768px) {
+  .work-card--wide {
+    flex-direction: column;
+  }
+  .work-card--wide .work-card__thumb {
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+  }
 }
 
 .work-card {
@@ -951,6 +1029,51 @@ img {
   font-size: 0.8rem;
   color: rgba(235, 235, 223, 0.5);
   letter-spacing: 0.05em;
+}
+
+/* --------------------------------------------
+   回到頂部按鈕
+   -------------------------------------------- */
+.back-to-top {
+  position: fixed;
+  bottom: var(--space-4);
+  right: var(--space-4);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: var(--color-brand);
+  color: var(--color-bg);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  line-height: 1;
+  box-shadow: 0 6px 18px rgba(84, 88, 65, 0.30);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition: opacity 0.3s var(--ease-out-soft),
+              visibility 0.3s var(--ease-out-soft),
+              transform 0.3s var(--ease-out-soft),
+              background-color 0.25s var(--ease-out-soft);
+  z-index: 90;
+}
+
+.back-to-top.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  background-color: var(--color-brand-deep);
+  transform: translateY(-3px);
+}
+
+[data-theme="dark"] .back-to-top {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
 }
 
 /* --------------------------------------------
