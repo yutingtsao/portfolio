@@ -216,4 +216,24 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  /* --------------------------------------------
+     5. 回到頂部按鈕：捲動超過一定距離才浮現
+     -------------------------------------------- */
+  var backToTop = document.querySelector(".back-to-top");
+  if (backToTop) {
+    var toggleBackBtn = function () {
+      if (window.scrollY > 600) {
+        backToTop.classList.add("is-visible");
+      } else {
+        backToTop.classList.remove("is-visible");
+      }
+    };
+    toggleBackBtn();
+    window.addEventListener("scroll", toggleBackBtn, { passive: true });
+    backToTop.addEventListener("click", function () {
+      var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
+    });
+  }
+
 });
