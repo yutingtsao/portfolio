@@ -287,6 +287,56 @@ img {
   transition: background-color 0.4s var(--ease-out-soft);
 }
 
+/* 錨點捲動時，預留固定導覽列高度，避免標題被遮住 */
+[id] {
+  scroll-margin-top: 96px;
+}
+
+/* Work 頁分類標籤列（錨點捲動） */
+.work-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+}
+
+.work-tab {
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  padding: 9px 22px;
+  border-radius: 999px;
+  border: 1.5px solid var(--color-divider);
+  color: var(--color-text);
+  background-color: transparent;
+  cursor: pointer;
+  transition: all 0.25s var(--ease-out-soft);
+  text-decoration: none;
+}
+
+.work-tab:hover {
+  border-color: var(--color-brand);
+  color: var(--color-brand);
+  transform: translateY(-2px);
+}
+
+.work-tab.is-active {
+  background-color: var(--color-brand);
+  border-color: var(--color-brand);
+  color: var(--color-bg);
+}
+
+/* 平台區段標題 */
+.work-section__heading {
+  font-size: 1.5rem;
+  margin-bottom: var(--space-2);
+  color: var(--color-brand);
+}
+.work-section__desc {
+  color: var(--color-text-soft);
+  max-width: 600px;
+  margin-bottom: var(--space-5);
+}
+
 .section__label {
   font-family: var(--font-sans);
   font-size: 0.82rem;
@@ -505,10 +555,10 @@ img {
   border-radius: var(--radius-md);
   overflow: hidden;
   box-shadow: var(--shadow-soft);
-  transition: transform 0.35s var(--ease-out-soft),
-              box-shadow 0.35s var(--ease-out-soft),
+  transition: transform 0.5s var(--ease-out-soft),
+              box-shadow 0.5s var(--ease-out-soft),
               background-color 0.4s var(--ease-out-soft),
-              border-color 0.35s var(--ease-out-soft);
+              border-color 0.5s var(--ease-out-soft);
   display: flex;
   flex-direction: column;
   border: 1px solid transparent;
@@ -519,7 +569,7 @@ img {
 }
 
 .work-card:hover {
-  transform: translateY(-8px) scale(1.02);
+  transform: translateY(-10px) scale(1.035);
   box-shadow: var(--shadow-hover);
   border-color: var(--color-oat);
 }
@@ -670,6 +720,16 @@ img {
   color: var(--color-text-soft);
   font-weight: 300;
   max-width: 560px;
+}
+
+/* 履歷聯絡資訊 */
+.resume-contact {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  margin-top: var(--space-4);
+  font-size: 0.92rem;
+  color: var(--color-text-soft);
 }
 
 /* 「設計之外的我」圖文並排 */
