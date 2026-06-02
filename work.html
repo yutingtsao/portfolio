@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Work｜Tiffany UI/UX Designer</title>
+  <meta name="description" content="Tiffany 的作品 —— 橫跨 B2B 系統、嵌入式介面與行動應用的設計實踐。" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;600;700&family=Noto+Sans+TC:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ============ 導覽列 ============ -->
+  <header class="site-header">
+    <div class="container">
+      <nav class="nav">
+        <a href="index.html" class="nav__brand">Tiffany</a>
+        <button class="nav__toggle" aria-label="開啟選單">
+          <span></span><span></span><span></span>
+        </button>
+        <ul class="nav__links">
+          <li><a href="work.html">Work</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="resume.html">Resume</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <span class="section__label reveal">Selected Work</span>
+        <h1 class="section__title reveal" data-delay="80" style="font-size: 2.4rem;">作品</h1>
+        <p class="reveal" data-delay="120" style="max-width: 620px; color: var(--color-text-soft); margin-bottom: var(--space-6);">
+          橫跨 B2B 企業系統、嵌入式觸控介面與行動應用的設計實踐。每一個專案，都是一次將複雜需求理出秩序的旅程。
+        </p>
+
+        <!-- 主打 Case Study（主導設計） -->
+        <div class="work-grid">
+          <a href="case-coming-soon.html" class="work-card reveal" data-delay="120">
+            <div class="work-card__thumb">作品圖待放置</div>
+            <div class="work-card__body">
+              <span class="work-card__tag">B2B 企業系統</span>
+              <h3 class="work-card__title">油站管理系統</h3>
+              <p class="work-card__desc">從真實企業使用回饋出發，重新設計批次編輯機制，讓繁複的資料操作變得從容。</p>
+            </div>
+          </a>
+
+          <a href="case-coming-soon.html" class="work-card reveal" data-delay="200">
+            <div class="work-card__thumb">作品圖待放置</div>
+            <div class="work-card__body">
+              <span class="work-card__tag">B2B 企業系統</span>
+              <h3 class="work-card__title">車隊管理系統</h3>
+              <p class="work-card__desc">面對複雜的管理流程，以資訊架構與系統思維，理出清晰而一致的操作邏輯。</p>
+            </div>
+          </a>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- 優化型 Case Study（接手維護優化） -->
+        <span class="section__label reveal">Optimization &amp; Maintenance</span>
+        <h2 class="reveal" data-delay="80" style="font-size: 1.5rem; margin-bottom: var(--space-2);">接手維護與優化</h2>
+        <p class="reveal" data-delay="120" style="max-width: 620px; color: var(--color-text-soft); margin-bottom: var(--space-4);">
+          接手既有產品後，從實際使用中發現問題、持續優化體驗——展現快速理解他人設計、在既有框架內做出改善的能力。
+        </p>
+
+        <div class="work-grid">
+          <a href="case-coming-soon.html" class="work-card reveal" data-delay="120">
+            <div class="work-card__thumb">作品圖待放置</div>
+            <div class="work-card__body">
+              <span class="work-card__tag">嵌入式觸控</span>
+              <span class="work-card__tag work-card__tag--role">維護優化</span>
+              <h3 class="work-card__title">加油站觸控介面</h3>
+              <p class="work-card__desc">在戶外強光、零學習成本的 kiosk 情境中，優化操作動線與防呆設計。</p>
+            </div>
+          </a>
+
+          <a href="case-coming-soon.html" class="work-card reveal" data-delay="200">
+            <div class="work-card__thumb">作品圖待放置</div>
+            <div class="work-card__body">
+              <span class="work-card__tag">行動應用</span>
+              <span class="work-card__tag work-card__tag--role">維護優化</span>
+              <h3 class="work-card__title">加油 App</h3>
+              <p class="work-card__desc">接手既有 App，從使用情境出發，迭代優化常用功能的流程與體驗。</p>
+            </div>
+          </a>
+        </div>
+
+        <!-- 其他專案（精簡卡片，廣度展示） -->
+        <div class="work-grid--secondary">
+          <div class="work-card work-card--secondary reveal" data-delay="120">
+            <div class="work-card__thumb">作品圖待放置</div>
+            <div class="work-card__body">
+              <span class="work-card__tag">嵌入式觸控</span>
+              <h3 class="work-card__title">洗車機觸控介面</h3>
+              <p class="work-card__desc">實體場域的自助服務觸控介面維護。</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ 頁尾 ============ -->
+  <footer class="footer" id="contact">
+    <div class="container">
+      <h2 class="reveal">讓我們聊聊</h2>
+      <p class="footer__text reveal" data-delay="80">
+        如果我的設計取向與您的團隊產生共鳴，歡迎與我聯繫。
+      </p>
+      <div class="footer__links reveal" data-delay="160">
+        <a href="mailto:你的電子郵件">Email</a>
+        <a href="#" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="resume.html">履歷</a>
+      </div>
+      <p class="footer__copyright">© 2025 Tiffany. Designed &amp; built with care.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
