@@ -7,6 +7,33 @@
 document.addEventListener("DOMContentLoaded", function () {
 
   /* --------------------------------------------
+     0. 主題切換（淺色／深色）+ 記憶
+     -------------------------------------------- */
+  var themeToggle = document.querySelector(".theme-toggle");
+
+  function applyTheme(theme) {
+    if (theme === "dark") {
+      document.documentElement.setAttribute("data-theme", "dark");
+    } else {
+      document.documentElement.removeAttribute("data-theme");
+    }
+  }
+
+  if (themeToggle) {
+    themeToggle.addEventListener("click", function () {
+      var isDark =
+        document.documentElement.getAttribute("data-theme") === "dark";
+      var next = isDark ? "light" : "dark";
+      applyTheme(next);
+      try {
+        localStorage.setItem("theme", next);
+      } catch (e) {
+        /* localStorage 不可用時略過，不影響切換 */
+      }
+    });
+  }
+
+  /* --------------------------------------------
      1. 手機漢堡選單開合
      -------------------------------------------- */
   var toggle = document.querySelector(".nav__toggle");
