@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   /* --------------------------------------------
-     2. 捲動進場動畫
+     2. 捲動進場動畫（含更講究的 stagger）
      若使用者偏好減少動態，直接顯示、不觀察
      -------------------------------------------- */
   var prefersReduced = window.matchMedia(
@@ -66,18 +66,25 @@ document.addEventListener("DOMContentLoaded", function () {
     // 無障礙或不支援時：全部直接顯示
     revealEls.forEach(function (el) {
       el.classList.add("is-visible");
+      runCountUp(el);
     });
   } else {
     var observer = new IntersectionObserver(
       function (entries) {
         entries.forEach(function (entry) {
           if (entry.isIntersecting) {
-            // stagger：依群組內順序錯開觸發
-            var delay = entry.target.dataset.delay || 0;
+            var el = entry.target;
+            // stagger：優先用 data-delay；若同一容器有多個相鄰 reveal，
+            // 自動依序錯開，讓節奏更自然
+            var delay = parseInt(el.dataset.delay, 10);
+            if (isNaN(delay)) {
+              delay = autoStaggerDelay(el);
+            }
             setTimeout(function () {
-              entry.target.classList.add("is-visible");
+              el.classList.add("is-visible");
+              runCountUp(el);
             }, delay);
-            observer.unobserve(entry.target);
+            observer.unobserve(el);
           }
         });
       },
@@ -89,6 +96,66 @@ document.addEventListener("DOMContentLoaded", function () {
 
     revealEls.forEach(function (el) {
       observer.observe(el);
+    });
+  }
+
+  // 自動 stagger：同一父層相鄰的 reveal 元素依序 +90ms
+  function autoStaggerDelay(el) {
+    var parent = el.parentElement;
+    if (!parent) return 0;
+    var siblings = Array.prototype.filter.call(
+      parent.children,
+      function (c) {
+        return c.classList && c.classList.contains("reveal");
+      }
+    );
+    var idx = siblings.indexOf(el);
+    return idx > 0 ? idx * 90 : 0;
+  }
+
+  /* --------------------------------------------
+     2b. 數字滾動遞增（Case Study 量化成果用）
+     用法：<span class="count-up" data-target="40" data-suffix="%">0</span>
+     元素需在 .reveal 容器內，進場時觸發
+     -------------------------------------------- */
+  function runCountUp(scope) {
+    var nums = scope.classList && scope.classList.contains("count-up")
+      ? [scope]
+      : scope.querySelectorAll
+        ? scope.querySelectorAll(".count-up")
+        : [];
+
+    Array.prototype.forEach.call(nums, function (numEl) {
+      if (numEl.dataset.done) return;
+      numEl.dataset.done = "1";
+
+      var target = parseFloat(numEl.dataset.target || numEl.textContent) || 0;
+      var prefix = numEl.dataset.prefix || "";
+      var suffix = numEl.dataset.suffix || "";
+      var decimals = parseInt(numEl.dataset.decimals, 10) || 0;
+
+      if (prefersReduced) {
+        numEl.textContent = prefix + target.toFixed(decimals) + suffix;
+        return;
+      }
+
+      var duration = 1400;
+      var start = null;
+
+      function step(ts) {
+        if (!start) start = ts;
+        var progress = Math.min((ts - start) / duration, 1);
+        // ease-out
+        var eased = 1 - Math.pow(1 - progress, 3);
+        var current = target * eased;
+        numEl.textContent = prefix + current.toFixed(decimals) + suffix;
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else {
+          numEl.textContent = prefix + target.toFixed(decimals) + suffix;
+        }
+      }
+      requestAnimationFrame(step);
     });
   }
 
