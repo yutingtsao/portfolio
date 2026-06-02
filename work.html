@@ -29,7 +29,7 @@
   <header class="site-header">
     <div class="container">
       <nav class="nav">
-        <a href="index.html" class="nav__brand">Tiffany</a>
+        <a href="index.html" class="nav__brand">Tiffany Tsao</a>
         <div class="nav__right">
           <ul class="nav__links">
           <li><a href="work.html">Work</a></li>
@@ -50,15 +50,27 @@
   </header>
 
   <main>
+    <!-- 頁首 + 分類標籤 -->
     <section class="section">
       <div class="container">
         <span class="section__label reveal">Selected Work</span>
         <h1 class="section__title reveal" data-delay="80" style="font-size: 2.4rem;">作品</h1>
-        <p class="reveal" data-delay="120" style="max-width: 620px; color: var(--color-text-soft); margin-bottom: var(--space-6);">
+        <p class="reveal" data-delay="120" style="max-width: 620px; color: var(--color-text-soft); margin-bottom: var(--space-5);">
           橫跨 B2B 企業系統、嵌入式觸控介面與行動應用的設計實踐。每一個專案，都是一次將複雜需求理出秩序的旅程。
         </p>
+        <nav class="work-tabs reveal" data-delay="160" aria-label="作品分類">
+          <a href="#b2b" class="work-tab is-active">B2B 企業系統</a>
+          <a href="#kiosk" class="work-tab">嵌入式觸控</a>
+          <a href="#mobile" class="work-tab">行動應用</a>
+        </nav>
+      </div>
+    </section>
 
-        <!-- 主打 Case Study（主導設計） -->
+    <!-- 區段一：B2B 企業系統 -->
+    <section class="section section--alt" id="b2b">
+      <div class="container">
+        <h2 class="work-section__heading reveal">B2B 企業系統</h2>
+        <p class="work-section__desc reveal" data-delay="80">將複雜的商業需求與管理流程，轉化為清晰、高效且可長期維護的介面方案。</p>
         <div class="work-grid">
           <a href="case-coming-soon.html" class="work-card reveal" data-delay="120">
             <div class="work-card__thumb">作品圖待放置</div>
@@ -68,7 +80,6 @@
               <p class="work-card__desc">從真實企業使用回饋出發，重新設計批次編輯機制，讓繁複的資料操作變得從容。</p>
             </div>
           </a>
-
           <a href="case-coming-soon.html" class="work-card reveal" data-delay="200">
             <div class="work-card__thumb">作品圖待放置</div>
             <div class="work-card__body">
@@ -78,16 +89,14 @@
             </div>
           </a>
         </div>
+      </div>
+    </section>
 
-        <hr class="divider" />
-
-        <!-- 優化型 Case Study（接手維護優化） -->
-        <span class="section__label reveal">Optimization &amp; Maintenance</span>
-        <h2 class="reveal" data-delay="80" style="font-size: 1.5rem; margin-bottom: var(--space-2);">接手維護與優化</h2>
-        <p class="reveal" data-delay="120" style="max-width: 620px; color: var(--color-text-soft); margin-bottom: var(--space-4);">
-          接手既有產品後，從實際使用中發現問題、持續優化體驗——展現快速理解他人設計、在既有框架內做出改善的能力。
-        </p>
-
+    <!-- 區段二：嵌入式觸控 -->
+    <section class="section" id="kiosk">
+      <div class="container">
+        <h2 class="work-section__heading reveal">嵌入式觸控介面</h2>
+        <p class="work-section__desc reveal" data-delay="80">面對戶外強光、零學習成本、單一任務動線等實體場域挑戰，接手維護並持續優化體驗。</p>
         <div class="work-grid">
           <a href="case-coming-soon.html" class="work-card reveal" data-delay="120">
             <div class="work-card__thumb">作品圖待放置</div>
@@ -98,8 +107,26 @@
               <p class="work-card__desc">在戶外強光、零學習成本的 kiosk 情境中，優化操作動線與防呆設計。</p>
             </div>
           </a>
-
           <a href="case-coming-soon.html" class="work-card reveal" data-delay="200">
+            <div class="work-card__thumb">作品圖待放置</div>
+            <div class="work-card__body">
+              <span class="work-card__tag">嵌入式觸控</span>
+              <span class="work-card__tag work-card__tag--role">維護優化</span>
+              <h3 class="work-card__title">洗車機觸控介面</h3>
+              <p class="work-card__desc">實體場域的自助服務觸控介面維護與體驗優化。</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 區段三：行動應用 -->
+    <section class="section section--alt" id="mobile">
+      <div class="container">
+        <h2 class="work-section__heading reveal">行動應用</h2>
+        <p class="work-section__desc reveal" data-delay="80">從使用情境出發，迭代優化行動體驗的關鍵流程與功能動線。</p>
+        <div class="work-grid">
+          <a href="case-coming-soon.html" class="work-card reveal" data-delay="120">
             <div class="work-card__thumb">作品圖待放置</div>
             <div class="work-card__body">
               <span class="work-card__tag">行動應用</span>
@@ -109,19 +136,6 @@
             </div>
           </a>
         </div>
-
-        <!-- 其他專案（精簡卡片，廣度展示） -->
-        <div class="work-grid--secondary">
-          <div class="work-card work-card--secondary reveal" data-delay="120">
-            <div class="work-card__thumb">作品圖待放置</div>
-            <div class="work-card__body">
-              <span class="work-card__tag">嵌入式觸控</span>
-              <h3 class="work-card__title">洗車機觸控介面</h3>
-              <p class="work-card__desc">實體場域的自助服務觸控介面維護。</p>
-            </div>
-          </div>
-        </div>
-
       </div>
     </section>
   </main>
