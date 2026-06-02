@@ -170,4 +170,50 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  /* --------------------------------------------
+     4. Work 頁分類標籤：點擊高亮 + 捲動時同步 active
+     -------------------------------------------- */
+  var workTabs = document.querySelectorAll(".work-tab");
+  if (workTabs.length) {
+    // 點擊時立即高亮
+    workTabs.forEach(function (tab) {
+      tab.addEventListener("click", function () {
+        workTabs.forEach(function (t) { t.classList.remove("is-active"); });
+        tab.classList.add("is-active");
+      });
+    });
+
+    // 捲動時，依目前可見區段自動同步高亮
+    var sections = [];
+    workTabs.forEach(function (tab) {
+      var id = tab.getAttribute("href").replace("#", "");
+      var sec = document.getElementById(id);
+      if (sec) sections.push({ tab: tab, sec: sec });
+    });
+
+    if ("IntersectionObserver" in window && sections.length) {
+      var secObserver = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              var match = sections.filter(function (s) {
+                return s.sec === entry.target;
+              })[0];
+              if (match) {
+                workTabs.forEach(function (t) {
+                  t.classList.remove("is-active");
+                });
+                match.tab.classList.add("is-active");
+              }
+            }
+          });
+        },
+        { threshold: 0.3, rootMargin: "-20% 0px -50% 0px" }
+      );
+      sections.forEach(function (s) {
+        secObserver.observe(s.sec);
+      });
+    }
+  }
+
 });
