@@ -10,6 +10,17 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;600;700&family=Noto+Sans+TC:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
+  <!-- 防止深色模式載入閃白：套用樣式前先讀取偏好 -->
+  <script>
+    (function () {
+      try {
+        if (localStorage.getItem("theme") === "dark") {
+          document.documentElement.setAttribute("data-theme", "dark");
+        }
+      } catch (e) {}
+    })();
+  </script>
+
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
@@ -19,15 +30,21 @@
     <div class="container">
       <nav class="nav">
         <a href="index.html" class="nav__brand">Tiffany</a>
-        <button class="nav__toggle" aria-label="開啟選單">
-          <span></span><span></span><span></span>
-        </button>
-        <ul class="nav__links">
+        <div class="nav__right">
+          <ul class="nav__links">
           <li><a href="work.html">Work</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="resume.html">Resume</a></li>
           <li><a href="index.html#contact">Contact</a></li>
         </ul>
+          <button class="theme-toggle" aria-label="切換深色／淺色模式" title="切換深色／淺色模式">
+            <span class="icon-moon">🌙</span>
+            <span class="icon-sun">☀️</span>
+          </button>
+          <button class="nav__toggle" aria-label="開啟選單">
+          <span></span><span></span><span></span>
+        </button>
+        </div>
       </nav>
     </div>
   </header>
@@ -51,7 +68,7 @@
         </div>
 
         <div class="resume-download reveal" data-delay="80" style="margin-top:0; margin-bottom: var(--space-6);">
-          <a href="#" class="btn btn--primary">下載完整履歷 PDF</a>
+          <a href="#" class="btn btn--primary">下載完整履歷 PDF →</a>
         </div>
 
         <!-- 設計經驗 -->
@@ -149,11 +166,10 @@
         如果我的設計取向與您的團隊產生共鳴，歡迎與我聯繫。
       </p>
       <div class="footer__links reveal" data-delay="160">
-        <a href="mailto:你的電子郵件">Email</a>
-        <a href="#" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:tsao850924@gmail.com">Email</a>
         <a href="resume.html">履歷</a>
       </div>
-      <p class="footer__copyright">© 2025 Tiffany. Designed &amp; built with care.</p>
+      <p class="footer__copyright">© 2026 Tiffany — 每一個細節，都是一段用心的旅程。</p>
     </div>
   </footer>
 
