@@ -8,8 +8,9 @@
    -------------------------------------------- */
 :root {
   /* 色彩 —— 中性／背景 */
-  --color-bg: #ebebdf;          /* 頁面大背景（暖米） */
-  --color-card: #f4f4ec;        /* 卡片／區塊背景 */
+  --color-bg: #ebebdf;          /* 頁面大背景（暖米階一） */
+  --color-card: #f4f4ec;        /* 卡片／區塊背景（暖米階二，最亮） */
+  --color-bg-alt: #e3e3d3;      /* 交替區段背景（暖米階三，略深） */
   --color-divider: #dcdccd;     /* 低對比分隔線 */
 
   /* 色彩 —— 文字 */
@@ -61,6 +62,7 @@
 [data-theme="dark"] {
   --color-bg: #3f463a;          /* 鼠尾草深綠背景 */
   --color-card: #4a5243;        /* 卡片：比背景亮一階 */
+  --color-bg-alt: #363d31;      /* 交替區段：比背景略深 */
   --color-divider: #525a4a;     /* 分隔線：略亮於背景 */
 
   --color-text: #eae8db;        /* 暖米白內文 */
@@ -275,6 +277,16 @@ img {
   padding: var(--space-7) 0;
 }
 
+/* 區段背景分層（三階暖米，做節奏） */
+.section--alt {
+  background-color: var(--color-bg-alt);
+  transition: background-color 0.4s var(--ease-out-soft);
+}
+.section--card {
+  background-color: var(--color-card);
+  transition: background-color 0.4s var(--ease-out-soft);
+}
+
 .section__label {
   font-family: var(--font-sans);
   font-size: 0.82rem;
@@ -289,6 +301,29 @@ img {
 .section__title {
   font-size: 2.1rem;
   margin-bottom: var(--space-5);
+  position: relative;
+  padding-bottom: var(--space-2);
+}
+
+/* 標題下方陶土邊線：進場時從 0 展開 */
+.section__title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 3px;
+  background-color: var(--color-terracotta);
+  border-radius: 2px;
+  transition: width 0.7s var(--ease-out-soft) 0.2s;
+}
+.section__title.is-visible::after,
+.reveal.is-visible .section__title::after {
+  width: 56px;
+}
+/* 若標題本身就是 reveal 元素 */
+.section__title.reveal.is-visible::after {
+  width: 56px;
 }
 
 /* 分隔線 */
@@ -324,6 +359,41 @@ img {
   border-radius: 50%;
   z-index: 0;
   pointer-events: none;
+  animation: glowDrift 22s ease-in-out infinite;
+}
+
+/* 第二層極淡光暈（陶土調），與第一層錯開飄移，增加層次 */
+.hero::after {
+  content: "";
+  position: absolute;
+  bottom: -15%;
+  left: -8%;
+  width: 40vw;
+  height: 40vw;
+  max-width: 480px;
+  max-height: 480px;
+  background: radial-gradient(circle, rgba(176, 137, 104, 0.14), transparent 70%);
+  border-radius: 50%;
+  z-index: 0;
+  pointer-events: none;
+  animation: glowDrift2 26s ease-in-out infinite;
+}
+
+[data-theme="dark"] .hero::before {
+  background: radial-gradient(circle, rgba(205, 208, 184, 0.10), transparent 70%);
+}
+[data-theme="dark"] .hero::after {
+  background: radial-gradient(circle, rgba(210, 168, 127, 0.10), transparent 70%);
+}
+
+/* 極慢飄移：幾乎察覺不到，但讓畫面有呼吸感 */
+@keyframes glowDrift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-30px, 24px) scale(1.06); }
+}
+@keyframes glowDrift2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(28px, -20px) scale(1.08); }
 }
 
 .hero__inner {
@@ -363,13 +433,29 @@ img {
   align-items: center;
   gap: var(--space-1);
   font-family: var(--font-sans);
-  font-size: 1.05rem;
+  font-size: 1.02rem;
   font-weight: 500;
-  padding: 17px 38px;
+  padding: 13px 34px;
   border-radius: var(--radius-sm);
   cursor: pointer;
   transition: all 0.25s var(--ease-out-soft);
   border: 1.5px solid transparent;
+}
+
+/* 按鈕內箭頭：hover 時輕微右移 */
+.btn .arrow {
+  display: inline-block;
+  transition: transform 0.25s var(--ease-out-soft);
+}
+.btn:hover .arrow {
+  transform: translateX(4px);
+}
+/* 返回類箭頭（←）hover 時左移 */
+.btn .arrow--back {
+  transition: transform 0.25s var(--ease-out-soft);
+}
+.btn:hover .arrow--back {
+  transform: translateX(-4px);
 }
 
 .btn--primary {
@@ -436,6 +522,20 @@ img {
   transform: translateY(-8px) scale(1.02);
   box-shadow: var(--shadow-hover);
   border-color: var(--color-oat);
+}
+
+/* hover 時標題輕微變色（墨綠→深墨綠）、標籤底色加深，增加細節回饋 */
+.work-card__title,
+.work-card__tag {
+  transition: color 0.3s var(--ease-out-soft),
+              background-color 0.3s var(--ease-out-soft);
+}
+.work-card:hover .work-card__title {
+  color: var(--color-terracotta-deep);
+}
+.work-card:hover .work-card__tag {
+  background-color: var(--color-terracotta);
+  color: var(--color-card);
 }
 
 /* 作品圖佔位 */
@@ -512,9 +612,9 @@ img {
    9. About 頁面內容排版
    -------------------------------------------- */
 .prose h2 {
-  font-size: 1.6rem;
+  font-size: 1.7rem;
   margin-top: var(--space-6);
-  margin-bottom: var(--space-3);
+  margin-bottom: var(--space-4);
 }
 
 .prose h2:first-child {
@@ -526,26 +626,26 @@ img {
   font-family: var(--font-sans);
   font-weight: 600;
   color: var(--color-brand);
-  margin-top: var(--space-4);
+  margin-top: var(--space-5);
   margin-bottom: var(--space-2);
   padding-left: var(--space-2);
   border-left: 3px solid var(--color-terracotta);
 }
 
 .prose p {
-  margin-bottom: var(--space-3);
-  line-height: 1.95;
+  margin-bottom: var(--space-4);
+  line-height: 2.05;
 }
 
 .prose ol,
 .prose ul {
-  margin: var(--space-3) 0;
+  margin: var(--space-4) 0;
   padding-left: var(--space-3);
 }
 
 .prose li {
-  margin-bottom: var(--space-2);
-  line-height: 1.8;
+  margin-bottom: var(--space-3);
+  line-height: 1.9;
   padding-left: var(--space-1);
 }
 
@@ -561,6 +661,56 @@ img {
   border-radius: var(--radius-sm);
   padding: var(--space-3) var(--space-4);
   margin: var(--space-4) 0;
+}
+
+/* About 開場 lead 句 */
+.about-lead {
+  font-size: 1.25rem;
+  line-height: 2;
+  color: var(--color-text-soft);
+  font-weight: 300;
+  max-width: 560px;
+}
+
+/* 「設計之外的我」圖文並排 */
+.about-personal {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: var(--space-6);
+  align-items: center;
+}
+
+.about-personal__photo {
+  display: flex;
+  justify-content: center;
+}
+
+/* 形象照佔位 */
+.photo-placeholder {
+  width: 100%;
+  max-width: 320px;
+  aspect-ratio: 3 / 4;
+  background: linear-gradient(145deg, var(--color-oat), var(--color-card));
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-soft);
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  text-align: center;
+  line-height: 1.8;
+  box-shadow: var(--shadow-soft);
+}
+
+@media (max-width: 768px) {
+  .about-personal {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+  .about-personal__photo {
+    order: -1;
+  }
 }
 
 /* --------------------------------------------
