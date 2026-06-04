@@ -315,13 +315,13 @@ img {
   height: 28vw;
   max-width: 360px;
   max-height: 360px;
-  background: radial-gradient(circle, rgba(176, 137, 104, 0.10), transparent 70%);
+  background: radial-gradient(circle, rgba(84, 88, 65, 0.07), transparent 70%);
   border-radius: 50%;
   pointer-events: none;
   z-index: 0;
 }
 [data-theme="dark"] .section--alt::after {
-  background: radial-gradient(circle, rgba(210, 168, 127, 0.10), transparent 70%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.06), transparent 70%);
 }
 /* 確保內容在光暈之上 */
 .section--alt > .container,
@@ -374,6 +374,9 @@ img {
   font-size: 1.6rem;
   margin-bottom: var(--space-3);
   color: var(--color-brand);
+  padding-bottom: var(--space-2);
+  border-bottom: 2px solid var(--color-terracotta);
+  display: inline-block;
 }
 .work-section__desc {
   color: var(--color-text-soft);
@@ -449,7 +452,7 @@ img {
   height: 52vw;
   max-width: 680px;
   max-height: 680px;
-  background: radial-gradient(circle, rgba(176, 137, 104, 0.40), rgba(201, 187, 164, 0.20) 45%, transparent 72%);
+  background: radial-gradient(circle, rgba(84, 88, 65, 0.20), rgba(84, 88, 65, 0.08) 45%, transparent 72%);
   border-radius: 50%;
   z-index: 0;
   pointer-events: none;
@@ -457,7 +460,7 @@ img {
   animation: glowDrift 20s ease-in-out infinite;
 }
 
-/* 第二層光暈（燕麥調），與第一層錯開飄移，增加層次 */
+/* 第二層光暈（墨綠調），與第一層錯開飄移，增加層次 */
 .hero::after {
   content: "";
   position: absolute;
@@ -467,7 +470,7 @@ img {
   height: 46vw;
   max-width: 560px;
   max-height: 560px;
-  background: radial-gradient(circle, rgba(201, 187, 164, 0.34), transparent 70%);
+  background: radial-gradient(circle, rgba(84, 88, 65, 0.15), transparent 70%);
   border-radius: 50%;
   z-index: 0;
   pointer-events: none;
@@ -476,10 +479,10 @@ img {
 }
 
 [data-theme="dark"] .hero::before {
-  background: radial-gradient(circle, rgba(210, 168, 127, 0.30), rgba(205, 208, 184, 0.14) 45%, transparent 72%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.07) 45%, transparent 72%);
 }
 [data-theme="dark"] .hero::after {
-  background: radial-gradient(circle, rgba(205, 208, 184, 0.22), transparent 70%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.10), transparent 70%);
 }
 
 /* 飄移幅度加大，讓「呼吸感」更明顯 */
@@ -652,6 +655,11 @@ img {
   border-color: var(--color-oat);
 }
 
+/* 深色版卡片 hover：邊框用淺鼠尾草（與 CTA 按鈕同色） */
+[data-theme="dark"] .work-card:hover {
+  border-color: var(--color-brand);
+}
+
 /* hover 時標題輕微變色（墨綠→深墨綠）、標籤底色加深，增加細節回饋 */
 .work-card__title,
 .work-card__tag {
@@ -660,6 +668,9 @@ img {
 }
 .work-card:hover .work-card__title {
   color: var(--color-terracotta-deep);
+}
+[data-theme="dark"] .work-card:hover .work-card__title {
+  color: var(--color-brand);
 }
 .work-card:hover .work-card__tag {
   background-color: var(--color-terracotta);
@@ -743,12 +754,16 @@ img {
   font-size: 1.7rem;
   margin-top: var(--space-6);
   margin-bottom: var(--space-4);
+  padding-bottom: var(--space-2);
+  border-bottom: 2px solid var(--color-terracotta);
+  display: inline-block;
 }
 
 .prose h2:first-child {
   margin-top: 0;
 }
 
+/* 小標題：陶土圓點前綴（與大標題的底線系統區隔，不衝突） */
 .prose h3 {
   font-size: 1.15rem;
   font-family: var(--font-sans);
@@ -756,8 +771,18 @@ img {
   color: var(--color-brand);
   margin-top: var(--space-5);
   margin-bottom: var(--space-2);
-  padding-left: var(--space-2);
-  border-left: 3px solid var(--color-terracotta);
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+.prose h3::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--color-terracotta);
+  flex-shrink: 0;
 }
 
 .prose p {
@@ -919,9 +944,9 @@ img {
 .resume-item li {
   position: relative;
   padding-left: var(--space-3);
-  margin-bottom: var(--space-1);
+  margin-bottom: var(--space-2);
   font-size: 0.96rem;
-  line-height: 1.7;
+  line-height: 1.75;
 }
 
 .resume-item li::before {
@@ -929,6 +954,7 @@ img {
   position: absolute;
   left: 0;
   color: var(--color-terracotta);
+  font-weight: 700;
 }
 
 .skill-group {
@@ -1043,7 +1069,7 @@ img {
   border-radius: 50%;
   background-color: var(--color-brand);
   color: var(--color-bg);
-  border: none;
+  border: 2px solid var(--color-bg);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -1074,6 +1100,9 @@ img {
 
 [data-theme="dark"] .back-to-top {
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  border-color: var(--color-brand);
+  background-color: var(--color-card);
+  color: var(--color-text);
 }
 
 /* --------------------------------------------
